@@ -1,19 +1,9 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Pressable } from "react-native";
 import IntegraLogo from '@/components/IntegraLogo';
+import MontserratText from "@/components/MontserratText";
 import { LinearGradient } from 'expo-linear-gradient'
-import { useFonts, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 
 export default function Index() {
-  const [LoadedFont] = useFonts({
-    "Montserrat400": Montserrat_400Regular,
-    "Montserrat600": Montserrat_600SemiBold,
-    "MontserratBold": Montserrat_700Bold,
-  })
-
-  if (!LoadedFont) {
-    return <View />
-  }
-
   return (
     <LinearGradient
       colors={["#60A4E4", "#3274B4"]}
@@ -24,6 +14,14 @@ export default function Index() {
       <View style={styles.container}>
         <IntegraLogo />
         <Text style={styles.administratorText}>Área de Administrador</Text>
+        <Pressable>
+          <MontserratText 
+            size="600"
+            style={{ fontSize: 20}}
+          >
+            Entrar
+          </MontserratText>
+        </Pressable>
       </View>
     </LinearGradient>
   );
