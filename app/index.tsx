@@ -14,15 +14,20 @@ export default function Index() {
       <View style={styles.container}>
         <IntegraLogo />
         <Text style={styles.administratorText}>Área de Administrador</Text>
-        <Pressable>
-          <MontserratText 
-            size="600"
-            style={{ fontSize: 20}}
-          >
-            Entrar
-          </MontserratText>
-        </Pressable>
       </View>
+      <Pressable
+        style={({ pressed }) => [
+        styles.enterButton,
+        { opacity: pressed ? 0.5 : 1 },
+      ]}
+      >
+        <MontserratText 
+          size="600"
+          style={{ fontSize: 20, letterSpacing: 2, color: "white"}}
+        >
+          Entrar
+        </MontserratText>
+      </Pressable>
     </LinearGradient>
   );
 }
@@ -33,14 +38,24 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   container: {
-    flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
+    height: "50%"
   },
   administratorText: {
     fontFamily: "Montserrat600",
     color: "white",
     fontSize: 17,
     letterSpacing: 2,
+  },
+  enterButton: {
+    backgroundColor: "#162B40",
+    width: "55%",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    alignSelf: "center",
+    marginTop: 140
   }
 })

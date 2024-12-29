@@ -14,6 +14,7 @@ const MontserratText = (props: MontserratTextProps) => {
         "MontserratBold": Montserrat_700Bold,
     })
     
+    // Condicional para verificar se as fontes foram carregadas com sucesso
     if (!LoadedFont) {
         return <View />
     }
