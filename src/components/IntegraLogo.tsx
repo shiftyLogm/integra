@@ -1,17 +1,25 @@
-import { Image, StyleSheet } from 'react-native'
+import { DimensionValue, Image, StyleSheet } from 'react-native'
 
-const IntegraLogo = () => {
+interface IntegraLogoProps {
+    width?: DimensionValue
+    mainLogo?: boolean
+}
+
+const IntegraLogo = ({ width = "75%", mainLogo = true}: IntegraLogoProps) => {
     return (
         <Image
-            style={styles.body}
-            source={require('../assets/images/logo.png')}
+            style={[styles.body, { width: width }]} // Propriedade Width para mudar a estilização da imagem dinamicamente
+            source={
+                mainLogo 
+                ? require('../assets/images/logo.png')
+                : require('../assets/images/logoSecond.png')
+            }
         />
     )
 }
 
 const styles = StyleSheet.create({
     body: {
-        width: "75%",
         height: 100,
         resizeMode: 'contain'
     },

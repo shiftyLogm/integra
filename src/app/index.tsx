@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import IntegraLogo from '@/components/IntegraLogo';
 import MontserratText from "@/components/MontserratText";
-import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient';
 import { enterMainMenu } from "@/navigation/routes";
 
 export default function Index() {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "flex-end",
     alignItems: "center",
-    height: "50%"
+    height: "50%",
   },
   administratorText: {
     fontFamily: "Montserrat600",
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     alignSelf: "center",
-    marginTop: 140
+    marginTop: 140,
   },
   enterLink: {
     display: "flex",
-    justifyContent: "center"
-  }
-})
+    justifyContent: "center",
+  },
+});
