@@ -1,7 +1,8 @@
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import IntegraLogo from '@/components/IntegraLogo';
 import MontserratText from "@/components/MontserratText";
 import { LinearGradient } from 'expo-linear-gradient'
+import { enterMainMenu } from "@/navigation/routes";
 
 export default function Index() {
   return (
@@ -15,19 +16,18 @@ export default function Index() {
         <IntegraLogo />
         <Text style={styles.administratorText}>Área de Administrador</Text>
       </View>
-      <Pressable
-        style={({ pressed }) => [
-        styles.enterButton,
-        { opacity: pressed ? 0.5 : 1 },
-      ]}
+      <TouchableOpacity
+        style={styles.enterButton}
+        activeOpacity={0.7}
+        onPress={enterMainMenu}
       >
-        <MontserratText 
+        <MontserratText
           size="600"
-          style={{ fontSize: 20, letterSpacing: 2, color: "white"}}
+          style={{ fontSize: 20, letterSpacing: 2, color: "white" }}
         >
           Entrar
         </MontserratText>
-      </Pressable>
+      </TouchableOpacity>
     </LinearGradient>
   );
 }
@@ -57,5 +57,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: "center",
     marginTop: 140
+  },
+  enterLink: {
+    display: "flex",
+    justifyContent: "center"
   }
 })
