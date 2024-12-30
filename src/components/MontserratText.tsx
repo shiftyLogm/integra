@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TextStyle } from 'react-native'
 import { useFonts, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 
 interface MontserratTextProps {
-    size?: "400" | "600" | "bold";
+    size?: "400" | "600" | "bold"; // Opções dinâmicas de peso para a fonte
     style?: TextStyle;
     children?: React.ReactNode;
 }
@@ -25,7 +25,10 @@ const MontserratText = (props: MontserratTextProps) => {
         "bold" : styles.montserratBold
     }))
 
-    // Caso não selecione o peso da fonte, por padrão será a regular 400
+    /* 
+    Caso não selecione o peso da fonte, por padrão será a regular 400
+    Aqui será pego o value referente a key passada pela opção
+    */
     const fontStyle = sizeOptions.get(props.size || "400")
 
     return (

@@ -6,5 +6,5 @@ export default function Layout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="main-menu" options={{ animation: "ios_from_right" }} />
     </Stack>
-  )
+  );
 }
