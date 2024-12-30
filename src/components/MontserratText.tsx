@@ -7,7 +7,8 @@ interface MontserratTextProps {
     children?: React.ReactNode;
 }
 
-const MontserratText = (props: MontserratTextProps) => {
+export const MontserratText = (props: MontserratTextProps) => {
+    
     const [LoadedFont] = useFonts({
         "Montserrat400": Montserrat_400Regular,
         "Montserrat600": Montserrat_600SemiBold,
@@ -20,9 +21,9 @@ const MontserratText = (props: MontserratTextProps) => {
     }
 
     const sizeOptions = new Map(Object.entries({
-        "400" : styles.montserrat400,
-        "600" : styles.montserrat600,
-        "bold" : styles.montserratBold
+        "400" : stylesMontserrat.montserrat400,
+        "600" : stylesMontserrat.montserrat600,
+        "bold" : stylesMontserrat.montserratBold
     }))
 
     /* 
@@ -38,7 +39,8 @@ const MontserratText = (props: MontserratTextProps) => {
     )
 }
 
-const styles = StyleSheet.create({
+// Exportando o style da fonte caso queira usar em outro componente
+export const stylesMontserrat = StyleSheet.create({
     montserrat400: {
         fontFamily: "Montserrat400"
     },
@@ -49,5 +51,3 @@ const styles = StyleSheet.create({
         fontFamily: "MontserratBold"
     }
 })
-
-export default MontserratText;

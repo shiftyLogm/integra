@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import IntegraLogo from '@/components/IntegraLogo';
-import MontserratText from "@/components/MontserratText";
+import { MontserratText } from "@/components/MontserratText";
 import { LinearGradient } from 'expo-linear-gradient';
 import { enterMainMenu } from "@/navigation/routes";
 
