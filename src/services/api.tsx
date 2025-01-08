@@ -1,7 +1,7 @@
 import { create } from 'apisauce'
 
 const api = create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://integra-deploy.onrender.com',
 });
 
 export default api;

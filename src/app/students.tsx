@@ -43,17 +43,14 @@ export default function Students() {
 
     return (
         <View>
-            <ScrollView style={{ flex: 1 }}>
-                {students.map((student) => (
-                    <View key={student.id_aluno}>
-                        <Text>Nome: {student.nome}</Text>
-                        <Text>Rua: {student.rua}</Text>
-                        <Text>Bairro: {student.bairro}</Text>
-                        <Text>Cidade: {student.cidade}</Text>
-                    </View>
-                ))}
-            </ScrollView>
-            <Text>{error}</Text>
+            {students.map((student) => (
+                <View key={student.id_aluno}>
+                    <Text>Nome: {student.nome}</Text>
+                    <Text>Rua: {student.rua}</Text>
+                    <Text>Bairro: {student.bairro}</Text>
+                    <Text>Cidade: {student.cidade}</Text>
+                </View>
+            ))}
         </View>
     );
 }
