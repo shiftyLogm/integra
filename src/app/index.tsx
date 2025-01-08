@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import IntegraLogo from '@/components/IntegraLogo';
 import { MontserratText } from "@/components/MontserratText";
 import { LinearGradient } from 'expo-linear-gradient';
-import { enterMainMenu } from "@/navigation/routes";
+import { enterMainMenuArea } from "@/navigation/routes";
 
 export default function Index() {
   return (
@@ -19,7 +19,7 @@ export default function Index() {
       <TouchableOpacity
         style={styles.enterButton}
         activeOpacity={0.7}
-        onPress={enterMainMenu}
+        onPress={enterMainMenuArea}
       >
         <MontserratText
           size="600"

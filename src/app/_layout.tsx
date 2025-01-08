@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { TextInput, Keyboard, Animated, View, StyleSheet, Dimensions } from "react-native";
+import { TextInput, Keyboard, Animated, View, StyleSheet, Dimensions, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRef } from "react";
 import {
@@ -10,6 +10,7 @@ import {
 } from '@expo/vector-icons';
 import { MontserratText, stylesMontserrat } from "@/components/MontserratText";
 import { usePathname } from "expo-router";
+import { enterStudentArea } from "@/navigation/routes";
 
 export default function Layout() {
 
@@ -40,101 +41,103 @@ export default function Layout() {
     <View style={styles.container}>
 
       {/* Header com o TextInput para pequisar o Aluno */}
-      { !isIndexPage && (
-      <View style={styles.headerView}>
-        <LinearGradient
-          colors={["#60A4E4", "#3274B4"]}
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          style={[styles.backgroundGradient, { flexDirection: "row" }]}
-        >
-          <Animated.View style={[styles.headerContent, { width: widthAnim }]}>
-            <View style={styles.inputBox}>
-              <TextInput
-                placeholder="Nome do aluno"
-                placeholderTextColor={"#B5B5B5"}
-                onFocus={() => animatedWidth(0.9)}
-                style={[stylesMontserrat.montserrat400, styles.inputText]}
-              />
-            </View>
+      {!isIndexPage && (
+        <View style={styles.headerView}>
+          <LinearGradient
+            colors={["#60A4E4", "#3274B4"]}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={[styles.backgroundGradient, { flexDirection: "row" }]}
+          >
+            <Animated.View style={[styles.headerContent, { width: widthAnim }]}>
+              <View style={styles.inputBox}>
+                <TextInput
+                  placeholder="Nome do aluno"
+                  placeholderTextColor={"#B5B5B5"}
+                  onFocus={() => animatedWidth(0.9)}
+                  style={[stylesMontserrat.montserrat400, styles.inputText]}
+                />
+              </View>
 
-            <View style={styles.searchIcon}>
-              <IonIcon
-                name={"search"}
+              <View style={styles.searchIcon}>
+                <IonIcon
+                  name={"search"}
+                  size={30}
+                  color={"#59A5D8"}
+                />
+              </View>
+            </Animated.View>
+
+            <View style={styles.closeIcon}>
+              <AntIcon
+                name={"close"}
                 size={30}
-                color={"#59A5D8"}
+                color={"white"}
+                onPress={() => {
+                  animatedWidth(1),
+                    Keyboard.dismiss()
+                }}
               />
             </View>
-          </Animated.View>
 
-          <View style={styles.closeIcon}>
-            <AntIcon
-              name={"close"}
-              size={30}
-              color={"white"}
-              onPress={() => {
-                animatedWidth(1),
-                  Keyboard.dismiss()
-              }}
-            />
-          </View>
-
-        </LinearGradient>
-      </View>
+          </LinearGradient>
+        </View>
       )}
 
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false, animation: "ios_from_right" }}>
         <Stack.Screen name="index" />
-        <Stack.Screen
-          name="main-menu"
-          options={{ animation: "ios_from_right" }}
-        />
+        <Stack.Screen name="main-menu" />
+        <Stack.Screen name="students" />
       </Stack>
 
       {/* Footer com o Botões para a página de Alunos e Cursos */}
-      { !isIndexPage && (
-      <View style={styles.footerView}>
-        <LinearGradient
-          colors={["#60A4E4", "#3274B4"]}
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          style={styles.backgroundGradient}
-        >
-          <View style={styles.footerViewContent}>
-            <View style={styles.footerItem}>
-              <FontAwesomeIcon
-                name={"user-large"}
-                size={25}
-                color={"white"}
-              />
-              <MontserratText
-                size="600"
-                style={{ color: "white", fontSize: 12 }}
-              >
-                Alunos
-              </MontserratText>
-            </View>
+      {!isIndexPage && (
+        <View style={styles.footerView}>
+          <LinearGradient
+            colors={["#60A4E4", "#3274B4"]}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={styles.backgroundGradient}
+          >
+            <View style={styles.footerViewContent}>
+              <Pressable
+                onPress={enterStudentArea}
+                style={styles.footerItem}>
+                <FontAwesomeIcon
+                  name={"user-large"}
+                  size={25}
+                  color={"white"}
+                />
+                <MontserratText
+                  size="600"
+                  style={{ color: "white", fontSize: 12 }}
+                >
+                  Alunos
+                </MontserratText>
+              </Pressable>
 
-            <View style={styles.footerItem}>
-              <MaterialIcon
-                name={"library-books"}
-                size={25}
-                color={"white"}
-              />
-              <MontserratText
-                size="600"
-                style={{ color: "white", fontSize: 12 }}
-              >
-                Cursos
-              </MontserratText>
+              <View style={styles.footerItem}>
+                <MaterialIcon
+                  name={"library-books"}
+                  size={25}
+                  color={"white"}
+                />
+                <MontserratText
+                  size="600"
+                  style={{ color: "white", fontSize: 12 }}
+                >
+                  Cursos
+                </MontserratText>
+              </View>
             </View>
-          </View>
-        </LinearGradient>
-      </View>
+          </LinearGradient>
+        </View>
       )}
     </View>
   );
 }
+
+const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start', // Alinha o conteúdo do container
   },
   headerView: {
-    height: Dimensions.get("window").height * 0.09,
+    height: windowHeight * 0.09,
   }, headerContent: {
     height: "100%",
     justifyContent: "center",
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
     alignContent: "center"
   },
   footerView: {
-    height: Dimensions.get("window").height * 0.09,
+    height: windowHeight * 0.09,
     position: "fixed"
   },
   footerViewContent: {
