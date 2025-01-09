@@ -13,7 +13,7 @@ export default function Students() {
                     activeOpacity={0.8}
                 >
                     <MaterialCIcon
-                        name={"account-plus"}
+                        name={"book-plus"}
                         size={30}
                         color={"white"}
                     />
@@ -29,7 +29,7 @@ export default function Students() {
                     activeOpacity={0.8}
                 >
                     <MaterialCIcon
-                        name={"account-filter"}
+                        name={"book-search"}
                         size={30}
                         color={"white"}
                     />

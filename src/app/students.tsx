@@ -27,6 +27,7 @@ export default function Students() {
 
     const [students, setStudents] = useState<IStudent[]>([]);
     const [error, setError] = useState<string | null>();
+    const currentYear = new Date().getFullYear()
 
     useEffect(() => {
 
@@ -56,7 +57,7 @@ export default function Students() {
                         color={"white"}
                     />
                     <MontserratText
-                        size="600"    
+                        size="600"
                         style={{ color: "white" }}
                     >
                         Adicionar aluno
@@ -72,33 +73,60 @@ export default function Students() {
                         color={"white"}
                     />
                     <MontserratText
-                        size="600"   
-                        style={{ color: "white" }} 
+                        size="600"
+                        style={{ color: "white" }}
                     >
                         Filtrar lista
                     </MontserratText>
                 </TouchableOpacity>
             </View>
-            {/* {students.map((student) => (
-                <View key={student.id_aluno}>
-                    <Text>Nome: {student.nome}</Text>
-                    <Text>Rua: {student.rua}</Text>
-                    <Text>Bairro: {student.bairro}</Text>
-                    <Text>Cidade: {student.cidade}</Text>
+            {students.map((student) => (
+                <View style={styles.listStudent}>
+                    <View key={student.id_aluno} style={styles.listItem}>
+
+                        {/* Criar Elemento para foto do estudante depois */}
+                        <View style={styles.photo}></View>
+
+                        <View style={{ gap: 8 }}>
+                            <MontserratText 
+                                style={{ fontSize: 20 }}
+                                size="600"
+                            >
+                                {student.nome}
+                            </MontserratText>
+                            <MontserratText style={{ fontSize: 15 }}>
+                                ID: {student.id_aluno}
+                            </MontserratText>
+                        </View>
+
+                        <View style={{ flexDirection: "row", gap: 8, position: "absolute", right: 0 }} >
+                            <MaterialCIcon
+                                name={"account-edit"}
+                                size={30}
+                                color={"#60A4E4"}
+                            />
+                            <MaterialCIcon
+                                name={"account-remove"}
+                                size={30}
+                                color={"red"}
+                            />
+                        </View>
+                    </View>
                 </View>
-            ))} */}
+            ))}
         </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     headerView: {
-        height: 200,
+        height: "auto",
         width: "100%",
         flexDirection: "row",
         justifyContent: "center",
         marginTop: 10,
         gap: 8,
+        marginBottom: 10
     },
     userActionButton: {
         flexDirection: "row",
@@ -109,5 +137,24 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         gap: 8
+    },
+    listStudent: {
+        flexDirection: "row",
+        justifyContent: "center"
+    },
+    listItem: {
+        height: 100,
+        width: "90%",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 15
+    },
+    photo: {
+        borderRadius: "100%",
+        width: 70,
+        height: 70,
+        borderColor: "black",
+        borderStyle: "solid",
+        borderWidth: 2
     }
 });

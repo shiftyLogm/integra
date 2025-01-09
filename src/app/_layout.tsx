@@ -52,7 +52,7 @@ export default function Layout() {
             <Animated.View style={[styles.headerContent, { width: widthAnim }]}>
               <View style={styles.inputBox}>
                 <TextInput
-                  placeholder="Nome do aluno"
+                  placeholder="Nome ou ID do aluno"
                   placeholderTextColor={"#B5B5B5"}
                   onFocus={() => animatedWidth(0.9)}
                   style={[stylesMontserrat.montserrat400, styles.inputText]}
