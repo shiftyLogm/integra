@@ -10,7 +10,7 @@ import {
 } from '@expo/vector-icons';
 import { MontserratText, stylesMontserrat } from "@/components/MontserratText";
 import { usePathname } from "expo-router";
-import { enterStudentArea } from "@/navigation/routes";
+import { enterStudentArea, enterCoursesArea } from "@/navigation/routes";
 
 export default function Layout() {
 
@@ -116,7 +116,10 @@ export default function Layout() {
                 </MontserratText>
               </Pressable>
 
-              <View style={styles.footerItem}>
+              <Pressable 
+                style={styles.footerItem}
+                onPress={enterCoursesArea}
+              >
                 <MaterialIcon
                   name={"library-books"}
                   size={25}
@@ -128,7 +131,7 @@ export default function Layout() {
                 >
                   Cursos
                 </MontserratText>
-              </View>
+              </Pressable>
             </View>
           </LinearGradient>
         </View>

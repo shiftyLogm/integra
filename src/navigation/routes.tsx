@@ -7,3 +7,7 @@ export function enterMainMenuArea() {
 export function enterStudentArea() {
     router.navigate("/students")
 }
+
+export function enterCoursesArea() {
+    router.navigate("/courses")
+}
