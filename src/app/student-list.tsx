@@ -5,10 +5,9 @@ import { ScrollView } from "react-native";
 import { MontserratText } from "@/components/MontserratText";
 import { MaterialCommunityIcons as MaterialCIcon } from "@expo/vector-icons";
 import { enterStudentMenuArea } from "@/navigation/routes";
-import { Link } from "expo-router";
 
-interface IStudent {
-    id_aluno: number;
+export interface IStudent {
+    id_aluno: string;
     nome: string;
     data_nascimento: string;
     cpf: string;
@@ -25,14 +24,14 @@ interface IStudent {
     foto_aluno?: string;
 }
 
-export default function Students() {
+export default function StudentList() {
 
-    const [students, setStudents] = useState<IStudent[]>([]);
-    const [error, setError] = useState<string | null>();
+    const [students, setStudents] = useState<IStudent[] | null>([]);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
 
-        const fetchStudents = async () => {
+        const fetchStudents = async() => {
             try {
                 const response: any = await getStudents();
                 setStudents(response.rows)
@@ -81,7 +80,7 @@ export default function Students() {
                     </MontserratText>
                 </TouchableOpacity>
             </View>
-            {students.map((student) => (
+            {students?.map((student) => (
                 <View style={styles.listStudent}>
                     <View key={student.id_aluno} style={styles.listItem}>
 
@@ -99,8 +98,6 @@ export default function Students() {
                                 ID: {student.id_aluno}
                             </MontserratText>
                         </View>
-
-                        <Link href="/student/3">daw</Link>
                         <View style={styles.iconContent} >
                             <MaterialCIcon
                                 name={"account-edit"}
@@ -158,7 +155,7 @@ const styles = StyleSheet.create({
         height: 70,
         borderColor: "black",
         borderStyle: "solid",
-        borderWidth: 2
+        borderWidth: 1
     },
     iconContent: {
         flexDirection: "row",
