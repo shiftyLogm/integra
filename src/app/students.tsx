@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { MontserratText } from "@/components/MontserratText";
 import { MaterialCommunityIcons as MaterialCIcon } from "@expo/vector-icons";
+import { enterStudentMenuArea } from "@/navigation/routes";
+import { Link } from "expo-router";
 
 interface IStudent {
     id_aluno: number;
@@ -27,7 +29,6 @@ export default function Students() {
 
     const [students, setStudents] = useState<IStudent[]>([]);
     const [error, setError] = useState<string | null>();
-    const currentYear = new Date().getFullYear()
 
     useEffect(() => {
 
@@ -99,11 +100,13 @@ export default function Students() {
                             </MontserratText>
                         </View>
 
-                        <View style={{ flexDirection: "row", gap: 8, position: "absolute", right: 0 }} >
+                        <Link href="/student/3">daw</Link>
+                        <View style={styles.iconContent} >
                             <MaterialCIcon
                                 name={"account-edit"}
                                 size={30}
                                 color={"#60A4E4"}
+                                onPress={() => enterStudentMenuArea(student.id_aluno)}
                             />
                             <MaterialCIcon
                                 name={"account-remove"}
@@ -156,5 +159,11 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderStyle: "solid",
         borderWidth: 2
+    },
+    iconContent: {
+        flexDirection: "row",
+        gap: 8,
+        position: "absolute",
+        right: 0
     }
 });

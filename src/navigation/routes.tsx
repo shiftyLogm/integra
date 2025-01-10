@@ -11,3 +11,7 @@ export function enterStudentArea() {
 export function enterCoursesArea() {
     router.navigate("/courses")
 }
+
+// export function enterStudentMenuArea(id: number) {
+//     router.navigate(`/student/${id}`)
+// }
