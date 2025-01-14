@@ -81,9 +81,8 @@ export default function StudentList() {
                 </TouchableOpacity>
             </View>
             {students?.map((student) => (
-                <View style={styles.listStudent}>
-                    <View key={student.id_aluno} style={styles.listItem}>
-
+                <View key={student.id_aluno} style={styles.listStudent}>
+                    <View style={styles.listItem}>
                         {/* Criar Elemento para foto do estudante depois */}
                         <View style={styles.photo}></View>
 

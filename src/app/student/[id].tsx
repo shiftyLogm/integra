@@ -4,11 +4,13 @@ import { getStudentWithID } from '@/services/get-student-id';
 import { IStudent } from '../student-list';
 import { View, StyleSheet, Image } from 'react-native';
 import { MontserratText } from '@/components/MontserratText';
+import { TextInput } from 'react-native';
+import { stylesMontserrat } from '@/components/MontserratText';
 
 export default function Student() {
 
-    // Student e Error começa como Nulo e seus valores são alterados
-    // De acordo com a Response
+    // Student e Error começa como Nulo e seus valores são alterados de acordo com o Response
+    // student e error podem ser nulos aqui
     const [student, setStudent] = useState<IStudent | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -23,11 +25,13 @@ export default function Student() {
             try {
                 const response: any = await getStudentWithID(_id);
                 console.log(response)
+
                 if (response.statusCode == 404) {
-                    setError('Aluno não encontrado.');
-                } else {
-                    setStudent(response.data[0])
+                    return setError('Aluno não encontrado.');
                 }
+
+                setStudent(response.data[0])
+
             } catch (err) {
                 setError('Erro ao buscar o aluno.');
             }
@@ -58,23 +62,53 @@ export default function Student() {
 
     return (
         <View style={styles.container}>
-            <MontserratText style={styles.title}>Detalhes do Aluno</MontserratText>
-
             <View style={styles.infoContainer}>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>ID:</MontserratText> {id_aluno}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Nome:</MontserratText> {nome}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Data de Nascimento:</MontserratText> {data_nascimento}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>CPF:</MontserratText> {cpf}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Sexo:</MontserratText> {sexo}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Email:</MontserratText> {email}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Telefone:</MontserratText> {telefone}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>CEP:</MontserratText> {cep}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Rua:</MontserratText> {rua}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Número:</MontserratText> {numero}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Bairro:</MontserratText> {bairro}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Cidade:</MontserratText> {cidade}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>Estado:</MontserratText> {estado}</MontserratText>
-                <MontserratText style={styles.infoMontserratText}><MontserratText style={styles.bold}>País:</MontserratText> {pais}</MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>ID:</MontserratText> 
+                    <TextInput
+                        value={id_aluno}
+                        style={[stylesMontserrat.montserrat400]}
+                    />
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Nome:</MontserratText> {nome}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Data de Nascimento:</MontserratText> {data_nascimento}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>CPF:</MontserratText> {cpf}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Sexo:</MontserratText> {sexo}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Email:</MontserratText> {email}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Telefone:</MontserratText> {telefone}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>CEP:</MontserratText> {cep}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Rua:</MontserratText> {rua}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Número:</MontserratText> {numero}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Bairro:</MontserratText> {bairro}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Cidade:</MontserratText> {cidade}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>Estado:</MontserratText> {estado}
+                </MontserratText>
+                <MontserratText style={styles.infoMontserratText}>
+                    <MontserratText style={styles.bold}>País:</MontserratText> {pais}
+                </MontserratText>
 
                 {foto_aluno && (
                     <View style={styles.imageContainer}>
@@ -87,7 +121,6 @@ export default function Student() {
     );
 }
 
-// Estilos com StyleSheet para o React Native
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -121,6 +154,10 @@ const styles = StyleSheet.create({
     imageContainer: {
         marginTop: 20,
         alignItems: 'center',
+    },
+    
+    inputText: {
+        border
     },
     image: {
         width: 100,

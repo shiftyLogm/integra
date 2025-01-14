@@ -1,14 +1,14 @@
-import { Text, View, StyleSheet, TextStyle } from 'react-native'
+import { Text, StyleSheet, TextStyle } from 'react-native'
 import { useFonts, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold } from "@expo-google-fonts/montserrat";
 import React from 'react';
 
-interface MontserratTextProps {
+interface IMontserratTextProps {
     size?: "400" | "600" | "bold"; // Opções dinâmicas de peso para a fonte
     style?: TextStyle;
     children?: React.ReactNode;
 }
 
-export const MontserratText = (props: MontserratTextProps) => {
+export const MontserratText = (props: IMontserratTextProps) => {
     
     const [LoadedFont] = useFonts({
         "Montserrat400": Montserrat_400Regular,
@@ -47,7 +47,7 @@ export const stylesMontserrat = StyleSheet.create({
     }
 })
 
-const sizeOptions = new Map(Object.entries({
+export const sizeOptions = new Map(Object.entries({
     "400" : stylesMontserrat.montserrat400,
     "600" : stylesMontserrat.montserrat600,
     "bold" : stylesMontserrat.montserratBold

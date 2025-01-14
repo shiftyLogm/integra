@@ -1,17 +1,17 @@
 import { RelativePathString, router } from "expo-router";
 
 export function enterMainMenuArea() {
-    router.navigate("/main-menu")
+    router.push("/main-menu")
 }
 
 export function enterStudentArea() {
-    router.navigate("/student-list")
+    router.push("/student-list")
 }
 
 export function enterCoursesArea() {
-    router.navigate("/courses")
+    router.push("/courses")
 }
 
 export function enterStudentMenuArea(id: string) {
-    router.navigate(`/student/${id}`)
+    router.push(`/student/${id}`)
 }
