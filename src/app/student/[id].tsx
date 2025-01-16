@@ -2,167 +2,145 @@ import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { getStudentWithID } from '@/services/get-student-id';
 import { IStudent } from '../student-list';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, ScrollView } from 'react-native';
 import { MontserratText } from '@/components/MontserratText';
-import { TextInput } from 'react-native';
-import { stylesMontserrat } from '@/components/MontserratText';
+import { MontserratMaskedInput } from '@/components/MonteserratInputMasked';
+import moment from 'moment';
 
 export default function Student() {
-
-    // Student e Error começa como Nulo e seus valores são alterados de acordo com o Response
-    // student e error podem ser nulos aqui
-    const [student, setStudent] = useState<IStudent | null>(null);
-    const [error, setError] = useState<string | null>(null);
-
-    // Pegando o ID passado no parâmetro e convertendo de string[] -> string
+    const [student, setStudent] = useState<IStudent>();
+    const [error, setError] = useState<string>();
     const { id } = useLocalSearchParams();
-    const _id = String(id)
+    const _id = id ? String(id[0]) : null
 
     useEffect(() => {
-        if (!id) return;  // Evita chamadas sem 'id'
+        if (!_id) return; // Evitar chamadas sem ID.
 
         const fetchStudentWithId = async () => {
             try {
                 const response: any = await getStudentWithID(_id);
-                console.log(response)
-
-                if (response.statusCode == 404) {
-                    return setError('Aluno não encontrado.');
+                if (response.statusCode === 404) {
+                    setError('Aluno não encontrado.');
+                    return;
                 }
-
-                setStudent(response.data[0])
-
+                setStudent(response.data[0]);
             } catch (err) {
                 setError('Erro ao buscar o aluno.');
             }
         };
 
         fetchStudentWithId();
-    }, [id]);
+    }, [_id]);
 
     if (error) {
         return (
             <View style={styles.container}>
-                <MontserratText style={styles.errorMontserratText}>{error}</MontserratText>
+                <MontserratText style={styles.responseText}>{error}</MontserratText>
             </View>
         );
     }
 
-    // Enquanto o aluno está sendo carregado, é mostrado um texto indicando que estã carregando
     if (!student) {
         return (
             <View style={styles.container}>
-                <MontserratText style={styles.loadingMontserratText}>Carregando informações do aluno...</MontserratText>
+                <MontserratText style={styles.responseText}>Carregando informações do aluno...</MontserratText>
             </View>
         );
     }
 
-    // Desestruturação das propriedades do aluno
-    const { id_aluno, nome, data_nascimento, cpf, sexo, email, telefone, cep, rua, numero, bairro, cidade, estado, pais, foto_aluno } = student;
+    const updateStudentField = (field: keyof IStudent, value: string) => {
+        setStudent((prevStudent) => ({
+            ...prevStudent,
+            [field] : value,
+        }));
+    };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.infoContainer}>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>ID:</MontserratText> 
-                    <TextInput
-                        value={id_aluno}
-                        style={[stylesMontserrat.montserrat400]}
-                    />
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Nome:</MontserratText> {nome}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Data de Nascimento:</MontserratText> {data_nascimento}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>CPF:</MontserratText> {cpf}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Sexo:</MontserratText> {sexo}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Email:</MontserratText> {email}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Telefone:</MontserratText> {telefone}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>CEP:</MontserratText> {cep}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Rua:</MontserratText> {rua}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Número:</MontserratText> {numero}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Bairro:</MontserratText> {bairro}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Cidade:</MontserratText> {cidade}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>Estado:</MontserratText> {estado}
-                </MontserratText>
-                <MontserratText style={styles.infoMontserratText}>
-                    <MontserratText style={styles.bold}>País:</MontserratText> {pais}
-                </MontserratText>
-
-                {foto_aluno && (
-                    <View style={styles.imageContainer}>
-                        <MontserratText style={styles.bold}>Foto do Aluno:</MontserratText>
-                        <Image source={{ uri: foto_aluno }} style={styles.image} />
-                    </View>
-                )}
+        <ScrollView style={styles.container}>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>Nome</MontserratText>
+                <MontserratMaskedInput
+                    style={styles.inputContent}
+                    value={student.nome}
+                    onChangeText={(text) => updateStudentField("nome", text)}
+                />
             </View>
-        </View>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>Data de Nascimento</MontserratText>
+                <MontserratMaskedInput
+                    mask={'DATE_DDMMYYYY'}
+                    style={styles.inputContent}
+                    value={moment(student.data_nascimento).format('DDMMYYYY')} // Formatando de YYYY-MM-DD para DD/MM/YYYY em conjunto com a Máscara
+                    onChangeText={(text) => updateStudentField("data_nascimento", text)}
+                />
+            </View>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>CPF</MontserratText>
+                <MontserratMaskedInput
+                    mask={'BRL_CPF'}
+                    style={styles.inputContent}
+                    value={student.cpf}
+                    onChangeText={(text) => updateStudentField("cpf", text)}
+                />
+            </View>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>Sexo</MontserratText>
+                <MontserratMaskedInput
+                    style={styles.inputContent}
+                    value={student.sexo}
+                    onChangeText={(text) => updateStudentField("sexo", text)}
+                />
+            </View>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>E-mail</MontserratText>
+                <MontserratMaskedInput
+                    style={styles.inputContent}
+                    value={student.email}
+                    onChangeText={(text) => updateStudentField("email", text)}
+                />
+            </View>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>Telefone</MontserratText>
+                <MontserratMaskedInput
+                    mask={'BRL_PHONE'}
+                    style={styles.inputContent}
+                    value={student.telefone}
+                    onChangeText={(text) => updateStudentField("telefone", text)}
+                />
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         padding: 20,
+        gap: 15,
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    infoContainer: {
-        width: '100%',
-    },
-    infoMontserratText: {
-        fontSize: 16,
-        marginBottom: 10,
-    },
-    bold: {
-        fontWeight: 'bold',
-    },
-    errorMontserratText: {
-        fontSize: 18,
-        color: 'black',
-    },
-    loadingMontserratText: {
-        fontSize: 18,
-        color: 'gray',
-    },
-    imageContainer: {
-        marginTop: 20,
-        alignItems: 'center',
-    },
-    
-    inputText: {
-        border
-    },
-    image: {
+    studentImage: {
         width: 100,
         height: 100,
         borderRadius: 50,
-        marginTop: 10,
+        marginBottom: 10,
+    },
+    infoItem: {
+        marginBottom: 10,
+        gap: 8,
+    },
+    infoMontserratText: {
+        fontSize: 18,
+    },
+    responseText: {
+        fontSize: 18,
+        color: 'gray',
+    },
+    inputContent: {
+        width: "100%",
+        borderRadius: 10,
+        borderColor: "black",
+        borderWidth: 1,
+        paddingLeft: 10,
+        fontSize: 17
     },
 });
