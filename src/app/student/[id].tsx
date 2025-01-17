@@ -6,6 +6,8 @@ import { View, StyleSheet, Image, ScrollView } from 'react-native';
 import { MontserratText } from '@/components/MontserratText';
 import { MontserratMaskedInput } from '@/components/MonteserratInputMasked';
 import moment from 'moment';
+import { Picker } from '@react-native-picker/picker';
+import { stylesMontserrat } from '@/components/MontserratText';
 
 export default function Student() {
     const [student, setStudent] = useState<IStudent>();
@@ -51,12 +53,16 @@ export default function Student() {
     const updateStudentField = (field: keyof IStudent, value: string) => {
         setStudent((prevStudent) => ({
             ...prevStudent,
-            [field] : value,
+            [field]: value,
         }));
     };
 
     return (
         <ScrollView style={styles.container}>
+            <View style={styles.studentPhoto}>
+
+            </View>
+            <MontserratText size='bold' style={{ fontSize: 25, textAlign: "center" }}>{student.id_aluno}</MontserratText>
             <View style={styles.infoItem}>
                 <MontserratText size="bold" style={styles.infoMontserratText}>Nome</MontserratText>
                 <MontserratMaskedInput
@@ -85,11 +91,13 @@ export default function Student() {
             </View>
             <View style={styles.infoItem}>
                 <MontserratText size="bold" style={styles.infoMontserratText}>Sexo</MontserratText>
-                <MontserratMaskedInput
-                    style={styles.inputContent}
-                    value={student.sexo}
-                    onChangeText={(text) => updateStudentField("sexo", text)}
-                />
+                <View style={styles.inputContent}>
+                    <Picker>
+                        <Picker.Item label='Masculino' value='Masculino' />
+                        <Picker.Item label='Feminino' value='Feminino' />
+                        <Picker.Item label='Outro' value='Outro' />
+                    </Picker>
+                </View>
             </View>
             <View style={styles.infoItem}>
                 <MontserratText size="bold" style={styles.infoMontserratText}>E-mail</MontserratText>
@@ -108,6 +116,66 @@ export default function Student() {
                     onChangeText={(text) => updateStudentField("telefone", text)}
                 />
             </View>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>CEP</MontserratText>
+                <MontserratMaskedInput
+                    mask={'ZIP_CODE'}
+                    style={styles.inputContent}
+                    value={student.cep}
+                    onChangeText={(text) => updateStudentField("cep", text)}
+                />
+            </View>
+            <View style={styles.infoItem}>
+                <MontserratText size="bold" style={styles.infoMontserratText}>Endereço</MontserratText>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                    <View style={{ width: '75%', gap: 8 }}>
+                        <MontserratText size="600" style={styles.addressSubtitle}>Pais</MontserratText>
+                        <MontserratMaskedInput
+                            style={styles.inputContent}
+                            value={student.pais}
+                            onChangeText={(text) => updateStudentField("pais", text)}
+                        />
+                    </View>
+                    <View style={{ width: '20%', gap: 8 }}>
+                        <MontserratText size="600" style={styles.addressSubtitle}>Estado</MontserratText>
+                        <MontserratMaskedInput
+                            style={styles.inputContent}
+                            value={student.estado}
+                            onChangeText={(text) => updateStudentField("estado", text)}
+                        />
+                    </View>
+                </View>
+                <MontserratText size="600" style={styles.addressSubtitle}>Cidade</MontserratText>
+                <MontserratMaskedInput
+                    style={styles.inputContent}
+                    value={student.cidade}
+                    onChangeText={(text) => updateStudentField("cidade", text)}
+                />
+                <MontserratText size="600" style={styles.addressSubtitle}>Bairro</MontserratText>
+                <MontserratMaskedInput
+                    style={styles.inputContent}
+                    value={student.bairro}
+                    onChangeText={(text) => updateStudentField("bairro", text)}
+                />
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                    <View style={{ width: '75%', gap: 8 }}>
+                        <MontserratText size="600" style={styles.addressSubtitle}>Rua</MontserratText>
+                        <MontserratMaskedInput
+                            style={styles.inputContent}
+                            value={student.rua}
+                            onChangeText={(text) => updateStudentField("rua", text)}
+                        />
+                    </View>
+                    <View style={{ width: '20%', gap: 8 }}>
+                        <MontserratText size="600" style={styles.addressSubtitle}>Número</MontserratText>
+                        <MontserratMaskedInput
+                            style={styles.inputContent}
+                            value={student.numero}
+                            onChangeText={(text) => updateStudentField("numero", text)}
+                        />
+                    </View>
+                </View>
+            </View>
         </ScrollView>
     );
 }
@@ -118,11 +186,14 @@ const styles = StyleSheet.create({
         padding: 20,
         gap: 15,
     },
-    studentImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+    studentPhoto: {
+        width: 120,
+        height: 120,
+        borderRadius: 100,
         marginBottom: 10,
+        borderColor: "black",
+        borderWidth: 1,
+        alignSelf: "center"
     },
     infoItem: {
         marginBottom: 10,
@@ -141,6 +212,10 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderWidth: 1,
         paddingLeft: 10,
-        fontSize: 17
+        fontSize: 17,
+        height: 55
     },
+    addressSubtitle: {
+        fontSize: 14,
+    }
 });

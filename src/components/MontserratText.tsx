@@ -28,7 +28,7 @@ export const MontserratText = (props: IMontserratTextProps) => {
     const fontStyle = sizeOptions.get(props.size || "400")
 
     return (
-        <Text style={[fontStyle, props.style]}>
+        <Text style={[fontStyle, props.style ]}>
             {props.children}
         </Text>
     )
