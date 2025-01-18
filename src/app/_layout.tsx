@@ -34,7 +34,7 @@ export default function Layout() {
   const pathname = usePathname();
 
   // Condicional para verificar se a rota não é a "index"
-  // Assim, o header e footer apareceram nas que não são index
+  // Assim, o header e footer apareçerão nas que não são index
   const isIndexPage = pathname === "/"
 
   return (
